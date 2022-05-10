@@ -153,33 +153,44 @@ class _UnicornDialer extends State<UnicornDialer>
     var mainFAB = AnimatedBuilder(
         animation: this._parentController,
         builder: (BuildContext context, Widget child) {
-          return FloatingActionButton(
-              isExtended: false,
-              heroTag: widget.parentHeroTag,
-              backgroundColor: widget.parentButtonBackground,
-              onPressed: () {
-                mainActionButtonOnPressed();
-                if (widget.onMainButtonPressed != null) {
-                  widget.onMainButtonPressed();
-                }
-              },
-              child: !hasChildButtons
-                  ? widget.parentButton
-                  : AnimatedBuilder(
-                  animation: this._animationController,
-                  builder: (BuildContext context, Widget child) {
-                    return Transform(
-                      transform: new Matrix4.rotationZ(
-                          this._animationController.value * 0.8),
-                      alignment: FractionalOffset.center,
-                      child: new Icon(
-                          this._animationController.isDismissed
-                              ? widget.parentButton.icon
-                              : widget.finalButtonIcon == null
-                              ? Icons.close
-                              : widget.finalButtonIcon.icon),
-                    );
-                  }));
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFFE8666D),
+                  Color(0xFFCC363B),
+                ]
+              ),
+              shape: BoxShape.circle
+            ),
+            child: FloatingActionButton(
+                isExtended: false,
+                heroTag: widget.parentHeroTag,
+                backgroundColor: Colors.transparent,
+                onPressed: () {
+                  mainActionButtonOnPressed();
+                  if (widget.onMainButtonPressed != null) {
+                    widget.onMainButtonPressed();
+                  }
+                },
+                child: !hasChildButtons
+                    ? widget.parentButton
+                    : AnimatedBuilder(
+                    animation: this._animationController,
+                    builder: (BuildContext context, Widget child) {
+                      return Transform(
+                        transform: new Matrix4.rotationZ(
+                            this._animationController.value * 0.8),
+                        alignment: FractionalOffset.center,
+                        child: new Icon(
+                            this._animationController.isDismissed
+                                ? widget.parentButton.icon
+                                : widget.finalButtonIcon == null
+                                ? Icons.close
+                                : widget.finalButtonIcon.icon),
+                      );
+                    })),
+          );
         });
 
     if (hasChildButtons) {
