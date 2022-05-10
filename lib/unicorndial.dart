@@ -30,12 +30,7 @@ class UnicornButton extends FloatingActionButton {
   Widget returnLabel() {
     return Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFFE8666D),
-                Color(0xFFCC363B),
-              ]
-            ),
+            color: Colors.white,
             boxShadow: this.labelHasShadow
                 ? [
               new BoxShadow(
@@ -46,9 +41,6 @@ class UnicornButton extends FloatingActionButton {
               ),
             ]
                 : null,
-            color: this.labelBackgroundColor == null
-                ? Colors.white.withOpacity(0)
-                : this.labelBackgroundColor.withOpacity(0),
             borderRadius: BorderRadius.circular(3.0)), //color: Colors.white,
         padding: EdgeInsets.all(9.0),
         child: Text(this.labelText,
@@ -173,6 +165,7 @@ class _UnicornDialer extends State<UnicornDialer>
                 isExtended: false,
                 heroTag: widget.parentHeroTag,
                 backgroundColor: Colors.transparent,
+                foregroundColor: Colors.transparent,
                 onPressed: () {
                   mainActionButtonOnPressed();
                   if (widget.onMainButtonPressed != null) {
@@ -248,7 +241,7 @@ class _UnicornDialer extends State<UnicornDialer>
             key: widget.childButtons[index].currentButton.key,
             elevation: widget.childButtons[index].currentButton.elevation,
             foregroundColor:
-            widget.childButtons[index].currentButton.foregroundColor,
+            widget.childButtons[index].currentButton.foregroundColor.withOpacity(0),
             highlightElevation: widget
                 .childButtons[index].currentButton.highlightElevation,
             isExtended:
