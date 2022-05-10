@@ -30,6 +30,12 @@ class UnicornButton extends FloatingActionButton {
   Widget returnLabel() {
     return Container(
         decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFFE8666D),
+                Color(0xFFCC363B),
+              ]
+            ),
             boxShadow: this.labelHasShadow
                 ? [
               new BoxShadow(
@@ -41,8 +47,8 @@ class UnicornButton extends FloatingActionButton {
             ]
                 : null,
             color: this.labelBackgroundColor == null
-                ? Colors.white
-                : this.labelBackgroundColor,
+                ? Colors.white.withOpacity(0)
+                : this.labelBackgroundColor.withOpacity(0),
             borderRadius: BorderRadius.circular(3.0)), //color: Colors.white,
         padding: EdgeInsets.all(9.0),
         child: Text(this.labelText,
@@ -214,7 +220,17 @@ class _UnicornDialer extends State<UnicornDialer>
         intervalValue =
         intervalValue < 0.0 ? (1 / index) * 0.5 : intervalValue;
 
-        var childFAB = FloatingActionButton(
+        var childFAB = Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFFE8666D),
+                Color(0xFFCC363B),
+              ]
+            ),
+            shape: BoxShape.circle
+          ),
+          child: FloatingActionButton(
             onPressed: () {
               if (widget.childButtons[index].currentButton.onPressed !=
                   null) {
@@ -226,7 +242,7 @@ class _UnicornDialer extends State<UnicornDialer>
             child: widget.childButtons[index].currentButton.child,
             heroTag: widget.childButtons[index].currentButton.heroTag,
             backgroundColor:
-            widget.childButtons[index].currentButton.backgroundColor,
+            widget.childButtons[index].currentButton.backgroundColor.withOpacity(0),
             mini: widget.childButtons[index].currentButton.mini,
             tooltip: widget.childButtons[index].currentButton.tooltip,
             key: widget.childButtons[index].currentButton.key,
@@ -237,7 +253,7 @@ class _UnicornDialer extends State<UnicornDialer>
                 .childButtons[index].currentButton.highlightElevation,
             isExtended:
             widget.childButtons[index].currentButton.isExtended,
-            shape: widget.childButtons[index].currentButton.shape);
+            shape: widget.childButtons[index].currentButton.shape));
 
         return Positioned(
           right: widget.orientation == UnicornOrientation.VERTICAL
@@ -294,7 +310,7 @@ class _UnicornDialer extends State<UnicornDialer>
           child: GestureDetector(
               onTap: mainActionButtonOnPressed,
               child: Container(
-                color: widget.backgroundColor,
+                color: widget.backgroundColor.withOpacity(0),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
               )));
